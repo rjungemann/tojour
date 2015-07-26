@@ -21,7 +21,7 @@ module Tojour
     end
 
     def client(host, port, &block)
-      block.call(ssl_client)
+      block.call(ssl_client(host, port))
     end
 
     def ssl_server
