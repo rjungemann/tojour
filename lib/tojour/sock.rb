@@ -21,7 +21,7 @@ module Tojour
     end
 
     def client(host, port, &block)
-      block.call(ssl_client)
+      block.call(ssl_client(host, port))
     end
 
     def ssl_server
@@ -32,7 +32,7 @@ module Tojour
       OpenSSL::SSL::SSLServer.new(server, ssl_context)
     end
 
-    def ssl_client
+    def ssl_client(host, port)
       socket = TCPSocket.new(host, port)
       expected_cert = OpenSSL::X509::Certificate.new(File.open(@crt_path))
       ssl_client = OpenSSL::SSL::SSLSocket.new(socket)
@@ -42,6 +42,7 @@ module Tojour
         $stderr.puts 'Unexpected certificate.'
         exit(1)
       end
+      ssl_client
     end
   end
 end
