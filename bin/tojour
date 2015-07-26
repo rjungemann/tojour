@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/tojour/opt_parser'
+require_relative '../lib/tojour/cli'
+
+optparser = Tojour::OptParser.new(ARGV.dup)
+Tojour::Cli.new(optparser.options).send(optparser.method, *optparser.argv)
+
